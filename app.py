@@ -1,7 +1,21 @@
+import logging
 from flask import Flask, render_template, request, redirect, url_for, flash
 
+logging.basicConfig(level=logging.DEBUG) # Configure logging level
+logger = logging.getLogger(__name__)
+
 app = Flask(__name__)
-app.secret_key = 'supersecretkey' # Replace with a strong secret key in production
+
+# --- Constants ---
+SECRET_KEY = 'supersecretkey' # Replace with a strong secret key in production
+VALID_USERNAME = 'jsmith'
+VALID_PASSWORD = '123456'
+SUCCESS_MESSAGE = 'Login successful!'
+INVALID_CREDENTIALS_MESSAGE = 'Invalid credentials. Please try again.'
+DASHBOARD_WELCOME_MESSAGE = "Welcome, jsmith! You have successfully logged in."
+# --- End Constants ---
+
+app.secret_key = SECRET_KEY
 
 @app.route('/')
 def home():
@@ -12,21 +26,17 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        print(f"DEBUG: Comparing username: {repr(username)} with 'jsmith', password: {repr(password)} with '123456'") # TEMP DEBUG
-
-        if username == 'jsmith' and password == '123456':
-            print("DEBUG: Inside successful login condition.") # TEMP DEBUG
-            print("DEBUG: Executing successful login path - about to redirect.") # TEMP DEBUG
-            flash('Login successful!', 'success')
+        if username == VALID_USERNAME and password == VALID_PASSWORD:
+            flash(SUCCESS_MESSAGE, 'success')
             return redirect(url_for('dashboard'))
         else:
-            flash('Invalid credentials. Please try again.', 'danger')
+            flash(INVALID_CREDENTIALS_MESSAGE, 'danger')
     return render_template('login.html')
 
 @app.route('/dashboard')
 def dashboard():
     # This would be a protected route in a real application
-    return "Welcome, jsmith! You have successfully logged in."
+    return DASHBOARD_WELCOME_MESSAGE
 
 if __name__ == '__main__':
     app.run(debug=True)
