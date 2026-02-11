@@ -1,0 +1,115 @@
+# Environments
+.env
+.venv
+venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.egg
+.Python
+build/
+dist/
+develop-eggs/
+.eggs/
+*.egg-info/
+.installed.cfg
+*.manifest
+*.spec
+.tox/
+.mypy_cache/
+.pytest_cache/
+.ipynb_checkpoints/
+htmlcov/
+.coverage
+.coverage.*
+.pytype/
+nosetests.xml
+coverage.xml
+.benchmarks
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.bak
+*.swo
+
+# OS generated files
+.DS_Store
+.Trashes
+Thumbs.db
+
+# Testing
+/.test/
+/test-results/
+
+# Node.js
+/node_modules/
+/dist/
+/build/
+.npm/
+.yarn/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Gemini CLI
+.gemini/
+!/.gemini/.gitkeep # Keep the .gemini directory structure
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# mypy
+.mypy_cache/
+
+# ruff
+.ruff_cache/
+
+# Output
+output/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node (frontend)
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.next/
+
+# Git worktrees (parallel implementation)
+.worktrees/
+
