@@ -9,6 +9,8 @@ import app
 @pytest.fixture
 def client():
     app.app.config['TESTING'] = True
+    app.app.config['WTF_CSRF_ENABLED'] = False # Disable CSRF for testing forms if needed
+    app.app.config['SECRET_KEY'] = 'supersecretkey' # Ensure secret key matches app for flash messages
     with app.app.test_client() as client:
         yield client
 
@@ -22,13 +24,15 @@ def test_successful_login_attempt(client):
     # And 'testuser'/'testpassword' are the predefined credentials
     # And the form action is POST to /login
     response = client.post('/login', data=dict(
-        username='testuser',
-        password='testpassword'
-    ), follow_redirects=True)
+                    username='jsmith',        password='123456'
+    ))
+    assert response.status_code == 302
+    assert '/dashboard' in response.headers['Location']
 
-    # Then they should be successfully authenticated
-    # This assertion will fail until the login logic is implemented
-    assert b'Login successful' in response.data or b'Dashboard' in response.data # Placeholder for success indication
+    # Manually follow the redirect
+    response = client.get(response.headers['Location'])
+    assert response.status_code == 200
+    assert b"Welcome, jsmith! You have successfully logged in." in response.data
 
 def test_failed_login_attempt(client):
     # Given the user is on the login page
@@ -43,5 +47,5 @@ def test_failed_login_attempt(client):
 
     # Then they should be shown an error message
     # This assertion will fail until the login logic is implemented
-    assert b'Invalid credentials. Please try again.' not in response.data # This will fail for RED phase
+    assert b'Invalid credentials. Please try again.' in response.data
     assert b"Welcome, jsmith! You have successfully logged in." not in response.data # Assert that success message is NOT present

@@ -12,8 +12,11 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        print(f"DEBUG: Comparing username: {repr(username)} with 'jsmith', password: {repr(password)} with '123456'") # TEMP DEBUG
 
         if username == 'jsmith' and password == '123456':
+            print("DEBUG: Inside successful login condition.") # TEMP DEBUG
+            print("DEBUG: Executing successful login path - about to redirect.") # TEMP DEBUG
             flash('Login successful!', 'success')
             return redirect(url_for('dashboard'))
         else:
